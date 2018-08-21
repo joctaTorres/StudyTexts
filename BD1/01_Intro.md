@@ -4,12 +4,13 @@ Os Bancos de dados surgem como iniciativa de ***organização de dados***. BDs s
 Um _BD_ é projetado, construído e povoado com dados que possuem um objetivo específico.
 Os bancos relacionais são estruturados em forma de tabela.
 
+
 ## Características dos Bancos de Dados:
 - Armazenamento estruturado,
 - Acesso rápido,
 - Resposta rápiuda
 - Buscas rápidas,
-- Conter grande volume de informação (gb, tb...)
+- Conter grande volume de informação (_gb_, _tb_...)
 - Disponibilidade em rede
 - Leitura não sequencial
 
@@ -18,14 +19,14 @@ Além de recursos de segurança:
 - Ter usuários com diferentes níveis de acesso e permissões
 - Não permite a entrada de dados inconsistentes
 
+
 ## Vantagens na Utilização de BD:
 
 + Persistência das estruturas dos dados e procedimento
-+ Controle de redundância / consistência
++ Controle de redundância / consistência / integridade
 + Compartilhamento
 + Restrição de segurança
 + Suporte a transação
-+ Utilização de regras de restrição de integridade
 + Independência de Dados
 + Capacidade de recuperação e cópias
 + Múltiplas interfaces para usuários
@@ -36,14 +37,17 @@ Além de recursos de segurança:
 1. Redundância:
    * Ocorre quando um mesmo dado é armazenado em mais de uma área do banco de dados (ou há backup de dados).
 
-2. Consistência
+2. Consistência:
+    * Implica que o _BD_ não utiliza (isso é, opera ou transaciona) dados que conflitam com outros. Se um processo deixa a base de dados em um estado incorreto, o procedimento é abortado prar manter a consistência e é reportado um erro.
 
 3. Integridade:
-   * Diz respeito ao nível de confiança/credibilidade das informações do banco de dados.
-   * Regras de restrição..
+   * Em bancos de dados existe o conceito de _integridade relacional_, que diz respeito ao nível de exatidão e consistência dos dados no BD. Para garantir a integridade, a base de dados possue um série de regras de restrição.
+   * **_Regras de restrição de integridade_**: A integridade dos dados é tratada nas bases de dados através de uma série de regras. Existem vários tipos de restrições de integridade, como: _Restrição de Chave, Domínio, Integridade de vazio, referencial, da coluna_, entre outras, que serão abordadas posteriormente...
 
 4. Restrições de segurança:
-   * A restrição de segurança diz respeito a permissão de acesso, por determinados usuários, a determinadas..
+   * A restrição de segurança diz respeito a permissão de acesso, por determinados usuários, a determinadas informaões contidas no banco.
+   * Isso permite a atribuição de previlégios, que disponibilizam ao usuário final somente as informações que este precisa ou tem direito de acesso.
+
 
 ## Histórico
 
@@ -52,7 +56,10 @@ Além de recursos de segurança:
 
 SQL Ansi é uma padrão que é utilizado como base como construção de outras linguagens, então chamadas de _SQL-Based_
 
+
+
 ## Como funciona o SQL
+
 
 ## SGBD
 
