@@ -88,7 +88,7 @@ A grande vantagem da multiplexação é permitir que muitos nós se comuniquem s
 
 ### Comutação por Circuito:
 
-O equipamento de comutação procura um caminho físico desde o dispositivo transmissor até dispositivo receptor. Esse caminho pode conter trechos de fibra óptica ou de micro-ondas, mas a ideia básica funciona: quando a conexão é estabelecida, haverá um caminho dedicado entre as extremidades até que a ligação termine. Nesse tipo de comutação, há a garantia da taxa de transmissão, e a informação de voz chegará na mesma ordem desde o transmissor até o receptor.
+O equipamento de comutação procura um caminho físico desde o dispositivo transmissor até dispositivo receptor. Esse caminho pode conter trechos de fibra óptica ou de micro-ondas, mas a ideia básica funciona: quando a conexão é estabelecida, haverá um caminho dedicado entre as extremidades até que a ligação termine. Nesse tipo de comutação, há a garantia da taxa de transmissão, e a informação de voz chegará na mesma ordem desde o transmissor até o receptor. Com a comutação de circuitos, os bits simplesmente fluem pelo fio (meio) de modo contínuo.
 
 Uma das propriedades mais importantes na comutação de circuitos é a necessidade de **estabelecer esse caminho fim a fim antes que qualquer informação seja enviada**.
 
@@ -96,5 +96,63 @@ Na comutação de circuitos há também a reserva de largura de banda entre as e
 
 Mas se houver a reserva para um circuito de um determinado usuário, e ela não for usada, (o dispositivo para de enviar dados, mesmo que momentâneamente, por exemplo), a largura de banda desse circuito será desperdiçada. A reserva exclusiva de largura de banda para o circuito faz o sistema ineficiente, porque dificilmente os dispositivos trocam informações durante 100% do tempo em que ficam conectados. Sempre haverá tempos ociosos que não podem ser aproveitados, e a largura de banda só será liberada para outros fins quando um dos terminais encerrar a comunicação.
 
-A comutação de circuito dedicado pode ser composto por:
-...
+A comutação de circuito dedicado pode ter dois tipos de multiplexação:
+
+#### Frequency-Division Multiplexing (***FDM***):
+
+    - Reserva de uma banda de frequência para cada conexão.
+    - Cada circuito dispõe continuamente de um fração da largura de banda
+    
+    > A transmissão de rádio AM ilustra a FDM. O espectro alocado é de cerca de 1 MHz, aproximadamente 500 a 1500 kHz. Diferentes frequências são alocadas a diferentes canais lógicos (estações), cada um operando em uma parte do espectro, com a separação entre canais grande o bastante para impedir interferência.
+
+
+    
+#### Time-Division Multiplexing (***TDM***):
+    - Tempo dividido em quadros de duração física.
+    - Cada quadro é dividio em números fixos de compartilhamentos (chamados slots).
+    - Cada circuito dispõem de toda a largura de banda durante um breve intervalo de tempo.
+    - Os usuários se alternam (em um padrão de rodízio).
+    
+    > A TDM é bastante usada como parte das redes de telefone e celular. Para evitar um ponto de confusão, vamos esclarecer que isso é muito diferente da multiplexação estatística por divisão de tempo, ou STDM (Statistical Time Division Multiplexing).
+    
+  ### Comutaço de Pacotes:
+  
+Esse procedimento é diferente da comutação de circuitos, em que o resultado do estabelecimento da conexão é a reserva de largura de banda desde o transmissor até o receptor. Com essa tecnologia, os pacotes são enviados assim que estão disponíveis. Não é preciso estabelecer um caminho dedicado com antecedência.
+  
+  > Transmissão store-and-foward: se baseia no sistema postal. Cada mensagem (carta) carrega o endereço de destino completo e cada uma delas é roteada pelos nós intermediários através do sistema, independentemente de todas as outras. Existem diferentes nomes para mensagens em diferentes contextos; um pacote é uma mensagem na camada de rede. Quando os nós intermediários recebem uma mensagem completa antes de enviá-la para o próximo nó, isso é chamado transmissão store-and-forward. O atraso de acumular um pacote na memória do roteador antes que ele seja enviado para o próximo roteador excede o da comutação de circuitos.
+  
+Fica a critério dos roteadores usar a transmissão ***_store-and-forward_*** para enviar cada pacote em seu caminho ao destino por conta própria. Todos os dados no circuito seguem esse caminho. Fazer todos os pacotes seguirem o mesmo caminho significa que eles não poderão chegar fora de ordem. Porém, com a comutação de pacotes, não há nenhum caminho fixo e, assim,
+diferentes pacotes podem seguir caminhos distintos, dependendo das condições da rede no momento em que eles são enviados. Portanto, eles podem chegar fora de ordem.
+
+As redes de comutação de pacotes impõem um limite superior sobre o tamanho dos pacotes. Isso garante que nenhum usuário poderá monopolizar qualquer linha de transmissão por muito tempo. Isso também reduz o atraso, pois o primeiro pacote de uma mensagem longa pode ser encaminhado antes que o segundo tenha chegado por completo. 
+   
+Se muitos pacotes forem enviados ao mesmo tempo, isso gera atraso de enfileiramento e o congestionamento. Por outro
+lado, não existe perigo de obter um sinal de ocupado e não conseguir usar a rede.
+
+
+#### Multiplexação Estatística (STDM):
+
+Multiplexação estatística é o modelo predominante de transporte de pacotes na internet. Ele difere da multiplexação por divisão temporal (TDM) e da multiplexação por divisão de frequência (FDM).
+
+Each packet switch has multiple links attached to it. For each attached link, the packet switch has an output buffer (also called an output queue), which stores packets that the router is about to send into that link. The output buffers play a key role in packet switching.
+If an arriving packet needs to be transmitted onto a link but finds the link busy with the transmission of another packet, the arriving packet must wait in the output buffer. Thus, in addition to the store-and-forward delays, packets suffer output buffer queuing delays.
+These delays are variable and depend on the level of congestion in the network. Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, packet loss will occur—either the arriving packet or one of the already-queued packets will be dropped.
+
+// 
+Figure 1.12 illustrates a simple packet-switched network. As in Figure 1.11,
+packets are represented by three-dimensional slabs. The width of a slab represents
+the number of bits in the packet. In this figure, all packets have the same width and
+hence the same length. Suppose Hosts A and B are sending packets to Host E. Hosts
+A and B first send their packets along 10 Mbps Ethernet links to the first router. The
+router then directs these packets to the 1.5 Mbps link. If, during a short interval of
+time, the arrival rate of packets to the router (when converted to bits per second)
+exceeds 1.5 Mbps, congestion will occur at the router as packets queue in the link’s
+output buffer before being transmitted onto the link. For example, if Host A and B
+each send a burst of five packets back-to-back at the same time, then most of these
+packets will spend some time waiting in the queue. The situation is, in fact, entirely
+analogous to many common-day situations—for example, when we wait in line for
+a bank teller or wait in front of a tollbooth. We’ll examine this queuing delay in
+more detail in Section 1.4.
+
+
+
