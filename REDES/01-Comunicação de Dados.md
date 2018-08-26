@@ -45,6 +45,12 @@ Interligação de dispositivos com distância superior a região metropolitana (
 
 ## Estrutura da Rede
 
+### Links:
+Existem também os links de comunicação, que são definidos quando é estabelicida ou preestabelecida comunicação entre os sistemas, dentre as formas que são conectados temos:
+
+* **Links de difusão**: Canal de comunicação que fala com inúmeros canais na rede e o envio de pacote ocorre de forma direta com o endereço porém passa por outros endereços antes de chegar a seu destino. Na transmissão por difusão, quando um host A envia uma mensagem a um host B, todos os outros hosts da rede receberão a mensagem, mas apenas o host B irá interpretá-la e respondê-la. (Numa sala você chama “Carlos venha aqui por favor”, todos vão ouvir mas só carlos vai atender)
+
+* **Links ponto a ponto** : Na transmissão ponto a ponto, quando o host A manda a mensagem para o host B, apenas B irá recebê-la e todos os outros hosts da rede não recebem a mensagem.
 
 ### Borda da Rede:
 
