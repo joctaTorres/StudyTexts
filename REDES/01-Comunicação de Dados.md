@@ -17,15 +17,21 @@
 
 ### Simplex:
 
-A comunicação é unidirecional. O receptor sórecebe e o transmissor só transmite.
+A comunicação é unidirecional. O receptor só recebe e o transmissor só transmite.
+
+***
 
 ### Half-Duplex:
 
 Comunicação bidirecional, com um canal apenas. Cada dispositivo *ou **recebe** ou **transmite***. Mas não ao mesmo tempo.
 
+***
+
 ### Full-Duplex:
 
 Comunicação bidirecional. Os dispositivos podem ***enviar** e **receber*** simultaneamente.
+
+***
 
 ## Conceito de Redes:
 
@@ -35,13 +41,20 @@ Conjunto de dispositivos interligados de maneira a trocarem informações e comp
 
 Interligação de dispositivos com distâncias relativamente pequenas.
 
+***
+
 ### *Metropolitan Area Network (MAN)*:
 
 Rede metropolitana qe interliga redes locais de uma região.
 
+***
+
 ### *Wide Area Network (WAN)*:
 
 Interligação de dispositivos com distância superior a região metropolitana (rede geograficamente distribuída).
+
+***
+
 
 ## Estrutura da Rede
 
@@ -121,9 +134,9 @@ A comutação de circuito dedicado pode ter dois tipos de multiplexação:
     
     > A TDM é bastante usada como parte das redes de telefone e celular. Para evitar um ponto de confusão, vamos esclarecer que isso é muito diferente da multiplexação estatística por divisão de tempo, ou STDM (Statistical Time Division Multiplexing).
     
-  ### Comutaço de Pacotes:
+  ### Comutação de Pacotes:
   
-Esse procedimento é diferente da comutação de circuitos, em que o resultado do estabelecimento da conexão é a reserva de largura de banda desde o transmissor até o receptor. Com essa tecnologia, os pacotes são enviados assim que estão disponíveis. Não é preciso estabelecer um caminho dedicado com antecedência.
+Esse procedimento é diferente da comutação de circuitos, em que o resultado do estabelecimento da conexão dedicada e a reserva de largura de banda desde o transmissor até o receptor. Com essa tecnologia, os pacotes são enviados assim que estão disponíveis. Não é preciso estabelecer um caminho dedicado com antecedência.
   
   > Transmissão store-and-foward: se baseia no sistema postal. Cada mensagem (carta) carrega o endereço de destino completo e cada uma delas é roteada pelos nós intermediários através do sistema, independentemente de todas as outras. Existem diferentes nomes para mensagens em diferentes contextos; um pacote é uma mensagem na camada de rede. Quando os nós intermediários recebem uma mensagem completa antes de enviá-la para o próximo nó, isso é chamado transmissão store-and-forward. O atraso de acumular um pacote na memória do roteador antes que ele seja enviado para o próximo roteador excede o da comutação de circuitos.
   
@@ -140,25 +153,10 @@ lado, não existe perigo de obter um sinal de ocupado e não conseguir usar a re
 
 Multiplexação estatística é o modelo predominante de transporte de pacotes na internet. Ele difere da multiplexação por divisão temporal (TDM) e da multiplexação por divisão de frequência (FDM).
 
-Each packet switch has multiple links attached to it. For each attached link, the packet switch has an output buffer (also called an output queue), which stores packets that the router is about to send into that link. The output buffers play a key role in packet switching.
-If an arriving packet needs to be transmitted onto a link but finds the link busy with the transmission of another packet, the arriving packet must wait in the output buffer. Thus, in addition to the store-and-forward delays, packets suffer output buffer queuing delays.
-These delays are variable and depend on the level of congestion in the network. Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, packet loss will occur—either the arriving packet or one of the already-queued packets will be dropped.
+Cada roteador possue multiplos links conectados a ele. Para cada link de saída, o roteador possue um _buffer de saída_ (também chamada de _fila de saída_), que armazena os pacotes que o roteador está pronto para enviar naquele link. O buffer de saída tem um grande importância para a comutação de pacotes.
 
-// 
-Figure 1.12 illustrates a simple packet-switched network. As in Figure 1.11,
-packets are represented by three-dimensional slabs. The width of a slab represents
-the number of bits in the packet. In this figure, all packets have the same width and
-hence the same length. Suppose Hosts A and B are sending packets to Host E. Hosts
-A and B first send their packets along 10 Mbps Ethernet links to the first router. The
-router then directs these packets to the 1.5 Mbps link. If, during a short interval of
-time, the arrival rate of packets to the router (when converted to bits per second)
-exceeds 1.5 Mbps, congestion will occur at the router as packets queue in the link’s
-output buffer before being transmitted onto the link. For example, if Host A and B
-each send a burst of five packets back-to-back at the same time, then most of these
-packets will spend some time waiting in the queue. The situation is, in fact, entirely
-analogous to many common-day situations—for example, when we wait in line for
-a bank teller or wait in front of a tollbooth. We’ll examine this queuing delay in
-more detail in Section 1.4.
+Se um pacote que acabou de chegar no roteador precisa ser transmitido em um link de saída porém este link está ocupado transmitindo outro pacote, o pacote que acabou de chegar irá esperar no buffer de saída.
 
+Por isso, além dos atrasos de entrada _store-and-forward_ os pacotes sofrem atrasos no buffer de saída. Esses atrasos variam dependendo do nível de congestionamento da rede.
 
-
+Como o tamanho do buffer é finito, um pacote novo pode encontrar a fila completamente cheia com outros pacotes esperando para serem enviados. Neste caso, ocorre perda de pacote - o pacote mais recente ou algum da fila é descartado. 
