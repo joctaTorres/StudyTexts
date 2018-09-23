@@ -13,19 +13,22 @@
 5. Protocolo
     - Regras da Comunicação
 
+
+![Elementos Básicos da Comuicação](REDES/imgRedes/01comuicacao_de_dados/elementos_basicos.jpg)
+
+
+
 ## Tipos de Transmissão
 
 ### Simplex:
 
 A comunicação é unidirecional. O receptor só recebe e o transmissor só transmite.
 
-***
 
 ### Half-Duplex:
 
 Comunicação bidirecional, com um canal apenas. Cada dispositivo *ou **recebe** ou **transmite***. Mas não ao mesmo tempo.
 
-***
 
 ### Full-Duplex:
 
@@ -41,20 +44,17 @@ Conjunto de dispositivos interligados de maneira a trocarem informações e comp
 
 Interligação de dispositivos com distâncias relativamente pequenas.
 
-***
 
 ### *Metropolitan Area Network (MAN)*:
 
 Rede metropolitana qe interliga redes locais de uma região.
 
-***
 
 ### *Wide Area Network (WAN)*:
 
 Interligação de dispositivos com distância superior a região metropolitana (rede geograficamente distribuída).
 
 ***
-
 
 ## Estrutura da Rede
 
@@ -72,6 +72,8 @@ São os sistemas finais (cliente) - ou *hosts* - que estão nas extremidades da 
 ### Núcleo da Rede:
 
 É formado pela malha de roteadores interconectados, responsável por interligar ree entre si, formando a inter-redes ou *internet*.
+
+***
 
 ## Abordagens à Transmissão de Dados na Rede
 
