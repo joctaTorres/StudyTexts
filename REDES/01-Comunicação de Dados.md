@@ -14,7 +14,7 @@
     - Regras da Comunicação
 
 
-![Elementos Básicos da Comuicação](StudyTexts/REDES/imgRedes/01comuicacao_de_dados/elementos_basicos.jpg)
+![Elementos Básicos da Comuicação](https://raw.githubusercontent.com/joctaTorres/StudyTexts/jocta/redes/REDES/imgRedes/01comuicacao_de_dados/elementos_basicos.jpg?token=AagbtAGTpZ6Wl4ZK7xCx7Kr5G1XXFNdJks5bsOc4wA%3D%3D)
 
 
 ## Tipos de Transmissão
