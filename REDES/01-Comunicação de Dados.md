@@ -163,6 +163,24 @@ Por isso, além dos atrasos de entrada _store-and-forward_ os pacotes sofrem atr
 
 Como o tamanho do buffer é finito, um pacote novo pode encontrar a fila completamente cheia com outros pacotes esperando para serem enviados. Neste caso, ocorre perda de pacote - o pacote mais recente ou algum da fila é descartado. 
 
+##### Atrasos:
+
+Os pacotes podem sofrer quatro tipos de atrasos pelo caminho fim-a-fim:
+
+- Atraso de processamento nodal: 
+    - Checar “bit errors”;
+    - Examinar cabeçalho do pacote e determinar enlace de saída.
+- Atraso de fila:
+    - Tempo esperando pela transmissão no buffer de saída, o que depende do nível de congestionamento no roteador 
+- Atraso de transmissão:
+    - Depende da R = largura de banda do link (bps) e L = tamanho do pacote (bits).
+    - Tempo para enviar os bits no enlace = L/R
+- Atraso de propagação:
+    - Depende do D = comprimento do link físico e S = velocidade da luz de propagação no meio (~2x108 m/seg).
+    - Atraso de propagação = d/s
+
+> Atraso do nó = atraso-proc + atraso-fila + atraso-trans + atraso-prop 
+
 #### Um pouco sobre IP, camadas de rede, de transporte, datagramas e transmissão de pacotes fim-a-fim:
 
 Em breve estudaremos as diferentes camadas da rede. Porém, podemos adiantar um pouco do que vamos ver sobre esse tópico para falarmos sobre os pacotes e como eles são transmitidos fim a fim (e de quebra aprendemos alguns conceitos fundamentais).
@@ -220,7 +238,7 @@ Por isso, se diz que o TCP é orientado a conexão, isto é, um host estabelece 
     2. Os protocolos da camada de transporte (TCP ou UDP) do host transmissor passam um segmento e um endereço de destino para a camada de rede (como você passa uma carta para o serviço postal com um endereço de destino). A camada de rede, então provê o serviço de entrega do pacote (que ela enxerga como datagrama) para o a camada de transporte do host receptor.
 
 
-***
+
 
 #### Circuitos Virtuais e Redes de datagrama
 
@@ -229,6 +247,8 @@ Como já sabemos, a _camada de **transporte**_ pode fornecer serviços **orienta
 De maneira similar, a _camada de **rede**_ pode oferecer serviços **orientado _ou_ não orientado à conexão** entre dois sistemas finais. Os serviços **orientado _e_ não orientado à conexão** oferecidos pela _camada de **rede**_ são, em alguns aspectos, análogos aos serviços oferecidos pela _camada de **transporte**_, por exemplo:
 - O serviço orientado à conexão da camada de rede começa com um _handshake_ entre os os host
 - O serviço não orientado à conexão da camada de rede não possue nenhum procedimento preliminar entre os os host.
+
+
 Apesar dessas similaridades, existem diferenças:
 - Esses serviços são host-a-host providos pela _camada de rede_ para a _camada de transporte_.
     - Enquanto os serviços da camada de transporte são processo-a-processo.
@@ -241,3 +261,5 @@ Redes de computadores que fornecem apenas serviço orientado a conexão na camad
 na camada de rede são chamados de **redes de datagrama**
 
 As redes de circuito virtual e de datagrama são duas classes fundamentais de redes de computadores. Eles usam informações muito diferentes ao tomar suas decisões de encaminhamento.
+
+
