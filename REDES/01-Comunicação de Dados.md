@@ -124,8 +124,6 @@ A comutação de circuito dedicado pode ter dois tipos de multiplexação:
     - Cada circuito dispõe continuamente de um fração da largura de banda
     
     > A transmissão de rádio AM ilustra a FDM. O espectro alocado é de cerca de 1 MHz, aproximadamente 500 a 1500 kHz. Diferentes frequências são alocadas a diferentes canais lógicos (estações), cada um operando em uma parte do espectro, com a separação entre canais grande o bastante para impedir interferência.
-
-
     
 #### Time-Division Multiplexing (***TDM***):
     - Tempo dividido em quadros de duração física.
@@ -236,8 +234,6 @@ Por isso, se diz que o TCP é orientado a conexão, isto é, um host estabelece 
     1. Os pacotes que tanto falamos acima recebem o nome de datagrama na **camada de rede**. Os datagramas têm as informações para transmitir pacotes de um host a outro.
 
     2. Os protocolos da camada de transporte (TCP ou UDP) do host transmissor passam um segmento e um endereço de destino para a camada de rede (como você passa uma carta para o serviço postal com um endereço de destino). A camada de rede, então provê o serviço de entrega do pacote (que ela enxerga como datagrama) para o a camada de transporte do host receptor.
-
-
 
 
 #### Circuitos Virtuais e Redes de datagrama
