@@ -163,7 +163,7 @@ Por isso, além dos atrasos de entrada _store-and-forward_ os pacotes sofrem atr
 
 Como o tamanho do buffer é finito, um pacote novo pode encontrar a fila completamente cheia com outros pacotes esperando para serem enviados. Neste caso, ocorre perda de pacote - o pacote mais recente ou algum da fila é descartado. 
 
-### Um pouco sobre IP, camadas de rede, de transporte, datagramas e transmissão de pacotes fim-a-fim:
+#### Um pouco sobre IP, camadas de rede, de transporte, datagramas e transmissão de pacotes fim-a-fim:
 
 Em breve estudaremos as diferentes camadas da rede. Porém, podemos adiantar um pouco do que vamos ver sobre esse tópico para falarmos sobre os pacotes e como eles são transmitidos fim a fim (e de quebra aprendemos alguns conceitos fundamentais).
 
@@ -184,12 +184,12 @@ Um Datagrama é "uma entidade de dados completa e independente que contém infor
 
 Cada datagrama possue cabeçalho e carga. O cabeçalho IP inclue dados como endereço IP fonte e endereço IP de destino entre outros metadados necessários para roteamento e entrega do datagrama. Já a carga, é efetivamente o dado a ser transmitido. Esse método de aninhar o pacote com um cabeçalho é o que chamamos de encapsulamento. 
 
-> O termo datagrama é tido como sinonimo de pacote. Porém o termo datagrama é comumente reservado para pacotes utilizados por serviços de transporte não confiável, que não conseguem notificar o remetente se a transmissão falhou (serviços que por isso são também chamados de rede de datagrama). Enquanto o termo pacote é usado para qualquer pacote utilizando ou não um serviço de transporte seguro.
+> O termo datagrama é tido como sinonimo de pacote. Porém o termo datagrama é comumente reservado para pacotes utilizados por serviços de transporte não confiável, que não conseguem notificar o remetente se a transmissão falhou. Enquanto o termo pacote é usado para qualquer pacote utilizando ou não um serviço de transporte seguro.
 
 
 Agora que sabemos sobre a camada de rede e datagramas, vamos entender a **camada de transporte**:
 
-A camada de transporte provê uma comunicação lógica entre os hosts. A camada de transporte funciona acima da camada de rede para estabelecer um conexão entre os hosts. Para fazer isso, os pacote saem do host remetente em segmentos que passam pela camada de redes (como datagramas) até o destino. O sistema final destinatário então, finalmente remonta os segmentos na mensagem.
+A **camada de transporte** provê uma comunicação lógica entre os hosts. A camada de transporte funciona acima da camada de rede para estabelecer um conexão entre os hosts. Para fazer isso, os pacote saem do host remetente em segmentos que passam pela camada de redes (como datagramas) até o destino. O sistema final destinatário então, finalmente remonta os segmentos na mensagem.
 
 Entenda que a **camada de rede** apenas entrega um datagrama de um host a outro, já a camada de transporte utiliza a tecnologia da camada de rede para ligar o hosts processo a processo, ou seja, ampliando o serviço provido pela camada de redes. Para isso a camada de transporte utiliza o conceito de portas (que falaremos em breve).
 
@@ -202,17 +202,42 @@ Existem vários protocolos que podem ser utilizados pela camada de transporte, m
 > - O serviço não orientado a conexão não garante essa entrega.
  
  
-Os dois principais protocolos da camdad de transporte são:
+Os dois principais **protocolos da camada de transporte** são:
 
 **Protocolo UDP - Não Orientado a Conexão:**  A ideia central do protocolo é receber os dados de um processo e entregar ao processo de destino. Não leva em consideração o congestionamento da rede, ou uma entrega confiável dos dados. Neste tipo serviço não existe apresentação entre os sistemas finais. Quando um dos lados de uma aplicação quer enviar pacotes ao outro, ela simplesmente os envia. Como não há apresentação os pacotes podem ser remetidos mais rapidamente, mais também não há confirmações de entrega. A grande vantagem do UDP em relação ao TCP (outro protocolo da camada de transporte) está na velocidade de transmissão, relevando a confiabilidade na entrega dos pacotes. Nas aplicações onde velocidade é mais importante do que a ordem em que os pacotes são recebidos, como jogos, vídeos e músicas, o UDP é preferível.
 
 **Protocolo TCP - Serviço Orientado a Conexão:** O protocolo TCP é outro protocolo utilizado pela camada de transporte. A idéia central deste protocolo é prover confiabilidade no transporte dos dados, não deixando de lado o tráfego na rede (controle de congestionamento). A grande vantagem do TCP em relação ao UDP está na confiabilidade em que os dados são entregues ao remetente. Este protocolo provê mecanismos que garantem que todos os dados repassados a camada de aplicação não estão corrompidos. Desta forma um host A pode enviar um arquivo ao host B tendo a certeza de que o arquivo, caso seja entregue á camada de aplicação do host B, está íntegro. O cliente e o servidor (que residem em diferentes sistemas finais) enviam pacotes de controle um para o outro antes de transmitirem os dados reais. Esse procedimento de apresentação alerta o cliente e o servidor, fazendo com que eles se preparem para um "rajada" de pacotes.
-Uma vez que o procedimento de apresentação tenha terminado, diz – se que uma conexão foi estabelecida entre os dois sistemas finais. Mais os dois sistemas finais estão conectados de maneira muito tênue, por isso a terminologia ‘Orientado a Conexão’. Apenas os sistemas finais ficam cientes dessa conexão, os comutadores de pacotes ficam completamente alheio a ela. Os comutadores de pacotes não armazenam nenhum dado ou informação a respeito da comunicação.
+Uma vez que o procedimento de apresentação tenha terminado, diz – se que uma conexão foi estabelecida entre os dois sistemas finais. Mais os dois sistemas finais estão conectados de maneira muito tênue, por isso a terminologia ‘Orientado a Conexão’.
+
+> Note que o Serviço Orientado a Conexão é implementado na camada de transporte na borda da rede, nos sistemas finais. Apenas os sistemas finais ficam cientes dessa conexão, os comutadores de pacotes ficam completamente alheio a ela. Os comutadores de pacotes não armazenam nenhum dado ou informação a respeito da comunicação.
 
 Por isso, se diz que o TCP é orientado a conexão, isto é, um host estabelece uma conexão com outro host, de forma que um pode enviar dados para o outro em modo full duplex. O TCP, portanto, provê transferência confiável de dados entre processos rodando em sistemas finais. A comunicação entre os dois aplicativos se dá como se eles estivessem fisicamente interligados por um cabo, embora ambos possam estar a milhares de quilômetro de distância um do outro.
 
-***
-Resumindo:
-1. Os pacotes que tanto falamos acima recebem o nome de datagrama na **camada de rede**. Os datagramas têm as informações para transmitir pacotes de um _host_ a outro.
+    Resumindo:
 
-2. Os protocolos da camada de transporte (TCP ou UDP) do host transmissor passam um segmento e um endereço de destino para a camada de rede (como você passa uma carta para o serviço postal com um endereço de destino). A camada de rede, então provê o serviço de entrega do pacote (que ela enxerga como datagrama) para o a camada de transporte do host receptor.
+    1. Os pacotes que tanto falamos acima recebem o nome de datagrama na **camada de rede**. Os datagramas têm as informações para transmitir pacotes de um host a outro.
+
+    2. Os protocolos da camada de transporte (TCP ou UDP) do host transmissor passam um segmento e um endereço de destino para a camada de rede (como você passa uma carta para o serviço postal com um endereço de destino). A camada de rede, então provê o serviço de entrega do pacote (que ela enxerga como datagrama) para o a camada de transporte do host receptor.
+
+
+***
+
+#### Circuitos Virtuais e Redes de datagrama
+
+Como já sabemos, a _camada de **transporte**_ pode fornecer serviços **orientado _ou_ não orientado à conexão** entre dois _processos_ em máquinas diferentes atráves da rede. 
+
+De maneira similar, a _camada de **rede**_ pode oferecer serviços **orientado _ou_ não orientado à conexão** entre dois sistemas finais. Os serviços **orientado _e_ não orientado à conexão** oferecidos pela _camada de **rede**_ são, em alguns aspectos, análogos aos serviços oferecidos pela _camada de **transporte**_, por exemplo:
+- O serviço orientado à conexão da camada de rede começa com um _handshake_ entre os os host
+- O serviço não orientado à conexão da camada de rede não possue nenhum procedimento preliminar entre os os host.
+Apesar dessas similaridades, existem diferenças:
+- Esses serviços são host-a-host providos pela _camada de rede_ para a _camada de transporte_.
+    - Enquanto os serviços da camada de transporte são processo-a-processo.
+- As implementações do serviço orientado a conexões na camada de transporte e na camada de rede são diferentes.
+    - O serviço orientado à conexão da camada de transporte é implementado na borda da rede, nos sistemas finais; o serviço de conexão da camada de rede é implementado nos roteadores do núcleo da rede, bem como nos sistemas finais.
+
+Em todas as principais arquiteturas de redes de computadores até hoje (Internet, ATM, frame relay, etc), a _camada de rede_ provê serviço orientado à conexão host-a-host **_ou_**  serviço não orientado à conexão host-a-host, mas não ambos.
+
+Redes de computadores que fornecem apenas serviço orientado a conexão na camada de rede são chamadas _virtual-circuit (VC) networks_ ou **Redes de circuitos virtuais**. Já as redes que fornecem apenas serviço não orientado a conexão
+na camada de rede são chamados de **redes de datagrama**
+
+As redes de circuito virtual e de datagrama são duas classes fundamentais de redes de computadores. Eles usam informações muito diferentes ao tomar suas decisões de encaminhamento.
