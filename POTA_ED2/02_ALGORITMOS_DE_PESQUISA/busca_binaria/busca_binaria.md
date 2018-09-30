@@ -1,0 +1,3 @@
+# Busca Binaria
+
+É um método de pesquisa clássico para listas ordenadas. A estratégia é comparar o elemento pesquisado com o elemento do centro da lista, se o elemento for igual, então encontrou-se o elemento. Se o elemento for menor, continua-se a pesquisa a partir do elemento central da lista a esquerda. Se o elemento for maior, continua-se a pesquisa na centro da lista a direita. Essa estratégia se repete até que a busca se encerre.
