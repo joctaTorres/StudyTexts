@@ -1,0 +1,156 @@
+Comunicação de dados
+ -protocolo: dados
+ -transmissor: pc
+ - meio: rede fios
+
+Tipos de tranmissão:
+	simples - unilateral, apenas um transmite e um fala
+	half-dupleX: os dois transmitem e falam, porem não ao mesmo tempo
+	full-duples: os dispositivos podem enviar e receber 		    informações simultaneamente
+
+LAN: Interligação de dispositivos em distancias pequenas
+MAN: metrololes, proveem redes locais.
+WAM: maior que conexões metroolitanas, onde a rede é greograficamente distribuida
+PAN: curtissimas, bluetoth por exemplo.
+
+Links de difusão: Canal que fala com inumeros canais na rede, todos recebem a mensagem, mas apenas para aquele que a mensagem é destinada podera interceptala.
+Link ponto a ponto: Mensagem é enviada de forma direta.
+
+Borda de rede: sistemas na extreminada da rede
+Nucleo da rde: Interliga a rede formando internet, inter-redes. Um predio por exemplo
+
+Transmissão de Dados na rede: 
+Conceitos:
+	Comutação: Reserva e libera os recursos da rede para uso
+	- Alocação de recurso para possibilitar a transmissão de dados para os dispositivos
+	Multiplexação: Tecnica para mensagens ocuparem o mesmo meio de transporte. 
+	-Nós se comunicam simultaneamente pelo meio
+	-Necessario filtrar os sinais enviados para identificar, desmultiplexação
+
+Abordagens Transferencias de dados:
+	Comutação de circuito: recursos reservados pelo periodo da sessão
+	-taxa constante
+	- canal dedicado
+	- telefonia
+	Comutação de Pacotes: feita por demanda
+	-dados enviados em blocos
+	-melhor esforço
+	- compartilhamente de recurso
+	- internet
+	
+Comutação por circuito: O equipamente "procura" o caminho fisico do transmissor para o receptor e este caminho é dedicado para aquela ligação, até que ela termine. 
+	- garantia de taxa de transmissão
+	- informação chega na ordem de envio
+	- estebelece caminho fim a fim antes do envio do pacote
+	- desperdicio de banda caso não seja enviada informação
+		Frequency-Division Multiplexing(FDM):
+		-Reversa banda de frequencia para conexão
+		-Dispositivo dispõe continuamente de uma fração de banda
+		- Radio AM
+		Time-Division Multiplexing(TDM):
+		- Tempo dividido em quadros(slots)
+		- Dispositivo dispoe de toda largura de banda durante o slot
+		- Parte das redes de telefone. 
+Comutação de Pacotes: Pacotes são enviados assim que disponiveis, sem estabeler o caminho dedicado.
+	-recursos utilizados quando necessario
+	Store and forward:
+	- Mensagem tem endereço de destino completo e é roteado pelos nós até o destinatario 
+	- A mensagem chega completa em um nó antes de ser enviada
+	- Atraso de acumular pacotes na memoria do roteador(nó)
+	- Como não estabele caminho dedicado os pacotes de uma mensagem podem chegar fora de ordem
+	- Limite no tamanho dos pacotes, sem monopolio das linhas de transmissão
+		- Reduz atraso
+	-Pacotes enviados simultaneamente
+		-atraso, enfileiramento
+		-rede não fica ocupada
+	Multiplexação Estatistica(STDM): Cada swith possue links conecatos, cada link um buffer de saida, que armazena os pacotes prontos para serem enviados. Se um pacote chegar e ja tiver outro no buffer de saida, ele espera até desocupar.
+	-Atraso no store-and-foward e nos buffers de saida
+	- Se a fila tiver lotada pode perder pacotes.
+
+Atrasos:
+	Processamento nodal:
+	-checagem de but errors
+	- cabeçalho do pacote e determinar enlace de saida
+	Atraso de fila: 
+	-tempo esperando no buffer de saida do swith
+	Atraso de transmissão:
+	- Largura da banda do link x tamanho do pacote
+	- tempo de envio: L/R
+	Atraso de propagação
+	- complimento do link fisico e velocidade da luz
+	- atraso: d/s
+
+Camada de rede: responsavel pelo encaminhamento de pacotes, inclusive dos swiths intermidiarios(nós).
+	Intert Protocl (IP): protocolo de comunicação para envio de pacote. Entrega pacote de hist a host baseado no enredeço de IP e em rotulos com informações no cabeçalho do pacote. Dado do pacote é encapsulado(datagrama).
+	- Resposavel pelo endereçamento final, encapsulamento e roteamento dos datagramams do transmissos para o receptor, atráves de uma ou mais redes de IP. 
+	Datagrama: entidade de dados completa e independente que contem informações para ser roteada da origem para o destino. 
+	- Cada datagrama possue cabeçalho e carga. Cabelhaço contém IP, endereço fonte e destino e dados necessarios para roteamento e entrega do datagrama. Carga é o dado que esta sendo transmitido.
+		- Pacote + cabeçalho = encapsulamento
+		- datagrama = pacote. Datagrama é reservado para pacotes utilizados por serviçoes de transportes não confiaveis, Capote quando o serviço de transporte é seguro.
+
+Camada de transporte: Acima da camada de rede, estabelecendo conexão entre os hosts. 
+Pacote saem do hosrt remetente -> camada de redes(datagramas) -> host destino.
+
+Serviços orientado a conexão: dados entregues em ordem e completos
+Serviçoes não orientdo a conexão: não garante entrega
+
+Protocolos da camada de transporte
+Não orientado a conexção (UDP): receber dados de m processo e entregar ao processo destino, sem considerar congestionamento de rede, ou entrega confiavel. 
+	- Quer enviar, envia. 
+	- Pacotes podem ser remetidos rapidamente
+		-sem confirmação de entrega
+	-velocidade de transmissão
+	- jogos, videos, musicas
+Orientado a conexão(TCP): prover confiabildiade no transporte de dados, considerando trafego na rede.
+	- confiabilidade na entrega de dados
+	- Dados repassados não serão corrompidos
+	- Cliente(sistema A) -> pacotes de controle <- servidor
+	   servidor preparado para receber pacotes -> conectados.
+	- Full duplex.
+processo-a-processo
+borda da rede
+
+Circuitos virtuais e redes de datagrama: serviços orientado ou não orientado à conexão entre dois sistemas finais. Host-a-host
+	-Serviços impelementados no nucleo da rede, swithes.
+	-Serviço orientado a conexao: virtual-circuit
+	- Não orientado a conexção: redes de datagrama.
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
