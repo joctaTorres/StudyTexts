@@ -131,10 +131,10 @@ not. We’ll see later that while link-layer switches do not recognize IP addres
 The Figure also illustrates the important concept of encapsulation.
 At the sending host, an application-layer message (_M_ in the Figure) is passed to the transport layer. In the simplest case, the transport layer takes the message and **appends** additional information (so-called _transport-layer header information_, _Ht_ in the Figure) that will be used by the receiver-side transport layer. The application-layer message and the transport-layer header information together constitute the transport-layer segment. The transport-layer segment thus encapsulates the application-layer message.
 
-    The added information might include information allowing the receiver-side transport layer to deliver the message up to the appropriate application, and error-detection bits that allow the receiver to determine whether bits in the message have been changed in route.
+> The added information might include information allowing the receiver-side transport layer to deliver the message up to the appropriate application, and error-detection bits that allow the receiver to determine whether bits in the message have been changed in route.
 
 The transport layer then passes the segment to the network layer, which adds network-layer header information (_Hn_ in the Figure) such as source and destination end system addresses, creating a network-layer **datagram**. The datagram is then passed to the link layer, which (of course!) will add its own link-layer header information and create a link-layer **frame**.
 
-    Thus, we see that at each layer, a packet has two types of fields: header fields and a payload field. The payload is typically a packet from the layer above.
+> Thus, we see that at each layer, a packet has two types of fields: header fields and a payload field. The payload is typically a packet from the layer above.
 
 The process of encapsulation can be more complex than that described above. For example, a large message may be divided into multiple transport-layer segments (which might themselves each be divided into multiple network-layer datagrams). At the receiving end, such a segment must then be reconstructed from its constituent datagrams.
