@@ -67,17 +67,20 @@ Existem diversos protocolos de roteamento. Sempre lembre-se que a Internet é um
 
 A camada de Rede roteia um datagrama por uma série de roteadores do host origem ao host destino. Para mover o pacote de um nó (entenda nó como dispositivo host ou roteador) para o próximo na rota, a camada de rede depende dos serviços da camada de enlace.
 
-Em cada nó, a camada de rede do dispositivo passa o datagram para a camada de enlace, que entrega o datagrama para o próximo nó na rota. Neste próximo nó, a camada de enlace do dispositivo passa o datagrama para a sua camada de rede. O serviço provido pela camada de enlace depende especificamente do protocolo de enlace 
+Em cada nó, a camada de rede do dispositivo passa o datagrama para a camada de enlace, que entrega o datagrama para o próximo nó na rota. Neste próximo nó, a camada de enlace do dispositivo passa o datagrama para a sua camada de rede. Os serviços providos pela camada de enlace dependem especificamente do protocolo de enlace sendo empregado nos roteadores.
+
+A exemplo disto, alguns protocolos da camada de enlace oferecem entrega confiável de um nó para o próximo, através de um link. (Observe que esse serviço de entrega confiável é diferente do serviço de entrega confiável do TCP, que fornece entrega confiável de um sistema-final para outro.)
+
+> Exemplos de protocolos de camada de enlace incluem Ethernet, WiFi e o protocolo DOCSIS da rede de acesso por cabo.
+
+Como os datagramas normalmente precisam percorrer vários links para viajar da origem até o destino, um datagrama pode ser manipulado por diferentes protocolos de camada de enlace em diferentes enlaces ao longo de sua rota. Por exemplo, um datagrama pode ser manipulado pela Ethernet em um link e pelo PPP no próximo link. A camada de rede receberá um serviço diferente de cada um dos diferentes protocolos da camada de enlace.
+
+**_Vamos nos referir aos pacotes da camada de ligação como quadros_**. Em resumo, o trabalho da camada de link é mover quadros inteiros de um elemento de rede para um elemento de rede adjacente.
 
 
+# 5. Camada Física
 
-The Internet’s network layer routes a datagram through a series of routers between the source and destination.
-To move a packet from one node (host or router) to the next node in the route, the network layer relies on the services of the link layer.
-In particular, at each node, the network layer passes the datagram down to the link layer, which delivers the datagram to the next node along the route.
+Enquanto o trabalho da camada de link é mover quadros, o trabalho da camada física é mover os bits individuais dentro do quadro de um nó para o próximo. 
 
-At this next node, the link layer passes the datagram up to the network layer. The services provided by the link layer depend on the specific link-layer protocol that is employed over the link. For example, some link-layer protocols provide reliable delivery, from transmitting node, over one link, to receiving node. Note that this reliable delivery service is different from the reliable delivery service of TCP, which provides reliable delivery from one end system to another. Examples of link-layer protocols include Ethernet, WiFi, and the cable access network’s DOCSIS protocol. As datagrams typically need to traverse several links to travel from source to destination, a datagram may be handled by different link-layer protocols at different links along its route.
-For example, a datagram may be handled by Ethernet on one link and by PPP on the next link. The network layer will receive a different service from each of the different link-layer protocols. We’ll refer to the link-layer packets as frames. In summary, the job of the link layer is to move entire frames from one network element to an adjacent network element.
-
-# Physical Layer
-
-While the job of the link layer is to move frames, the job of the physical layer is to move the individual bits within the frame from one node to the next. The protocols in this layer are again link dependent and further depend on the actual transmission medium of the link (for example, twisted-pair copper wire, single-mode fiber optics). For example, Ethernet has many physical-layer protocols: one for twisted-pair copper wire, another for coaxial cable, another for fiber, and so on. In each case, a bit is moved across the link in a different way.
+Os protocolos nesta camada novamente dependem da ligação e dependem ainda mais do meio de transmissão da ligação (por exemplo, fio de cobre de par trançado, fibra ótica de modo único).
+Por exemplo, a Ethernet possui muitos protocolos de camada física: um para fio de cobre de par trançado, outro para cabo coaxial, outro para fibra e assim por diante. Em cada caso, um **bit** é movido pelo link de uma maneira diferente.
