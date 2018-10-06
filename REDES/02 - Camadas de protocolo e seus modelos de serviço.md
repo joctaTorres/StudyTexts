@@ -103,7 +103,7 @@ The seven layers of the OSI reference model, shown in Figure, are:
 7. Physical layer
 
 
-![Modelo OSI](https://raw.githubusercontent.com/joctaTorres/StudyTexts/jocta/redes/REDES/imgRedes/modelo-OSI.png?token=AagbtAy_AMwGdValmcfrsQLpM0VBaQ8qks5bvoJKwA%3D%3D)
+![Modelo OSI](imgRedes/modelo-OSI.png)
 
 
 The functionality of five of these layers is roughly the same as their similarly named Internet counterparts.
@@ -123,7 +123,7 @@ The Internet’s answer to both of these questions is the same—it’s up to th
 
 The figure below shows the physical path that data takes down a sending end system’s protocol stack, up and down the protocol stacks of an intervening link-layer switch and router, and then up the protocol stack at the receiving end system.
 
-![Encapsulamento](https://raw.githubusercontent.com/joctaTorres/StudyTexts/jocta/redes/REDES/imgRedes/encapsulamento.png?token=AagbtIJZpo6A5QvncpD2yDhrYEmyKhf5ks5bvoJEwA%3D%3D)
+![Encapsulamento](imgRedes/encapsulamento.png)
 
 As we discuss later in this book, routers and link-layer switches are both packet switches. Similar to end systems, routers and link-layer switches organize their networking hardware and software into layers. But routers and link-layer switches do not implement all of the layers in the protocol stack they typically implement only the bottom layers. As shown the figure above, link-layer switches implement layers 1 and 2; routers implement layers 1 through 3. This means, for example, that Internet routers are capable of implementing the IP protocol (a layer 3 protocol), while link-layer switches are
 not. We’ll see later that while link-layer switches do not recognize IP addresses, they are capable of recognizing layer 2 addresses, such as Ethernet addresses. Note that hosts implement all five layers; this is consistent with the view that the Internet architecture puts much of its complexity at the edges of the network.
