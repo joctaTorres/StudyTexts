@@ -1,0 +1,142 @@
+# Essência
+- Dados
+- Sofisticar
+    - manipulação
+    - grande volume
+    - disco
+    - eficiencia
+
+## Exemplo banco de dados
+```sql
+select *
+from Vendas 
+where and = 2018
+order by nome
+group by nome
+```
+----
+# Bubble sort
+Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.
+Bubble sort has many of the same properties as insertion sort, but has slightly higher overhead. In the case of nearly sorted data, bubble sort takes O(n) time, but requires at least 2 passes through the data (whereas insertion sort requires something more like 1 pass).
+### Key
+- Black values are sorted.
+- Gray values are unsorted.
+- A red triangle marks the algorithm position.
+
+### Properties
+- Stable
+- O(1) extra space
+- O(n2) comparisons and swaps
+- Adaptive: O(n) when nearly sorted
+## Ordenar Núneros
+[ 88, 12, 22, 6, 1, 8 ]
+Passar elemento por elemento e passar para o proximo.
+[88] 12 22 6 1 8 
+12 22 6 1 8 [88]
+Ainda não esta ordenado
+[12] 22 1 8 [88] 
+12 esta correto, vai pro proximo
+12 6 1 8 [22 88]
+6 1 8 [12 22 88]
+```` 1 6 [8 12 22 88] ```` 
+ordenado
+> Para visualizar visualgo.net
+
+### Bolha em C:
+ A -  Do final para o inicio;
+B - Para cada casa do vizinho;
+C -  Compara: 
+````c
+if (v[i]>v[i++]);
+````
+D - Troca:
+````c
+aux = v[j];
+v[j] = v[j++];
+v[j++ = aux];
+```` 
+>Quantas trocas foram feitas?
+>r: 9
+
+## Algoritimo em C:
+````c
+void bubbleSort(int arr[], int n) 
+{ 
+   int i, j; 
+   for (i = 0; i < n-1; i++)       
+  
+       // Last i elements are already in place    
+       for (j = 0; j < n-i-1; j++)  
+           if (arr[j] > arr[j+1]) 
+              swap(&arr[j], &arr[j+1]); 
+} 
+````
+----
+# Algoritimo por Seleção/ SelectionSort
+The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.
+From the comparions presented here, one might conclude that selection sort should never be used. It does not adapt to the data in any way, so its runtime is always quadratic.
+However, selection sort has the property of minimizing the number of swaps. In applications where the cost of swapping items is high, selection sort very well may be the algorithm of choice.
+
+### Key:
+- Black values are sorted.
+- Gray values are unsorted.
+- A red triangle marks the algorithm position.
+### Propeties
+- Not stable
+- O(1) extra space
+- Θ(n2) comparisons
+- Θ(n) swaps
+- Not adaptive
+## Ordenar numeros 
+88 12 22 6 [1] 8
+[1] 12 22 [6] 88 8 
+[1 6] 22 12 88 [8]
+[1 6 8] 12 88 22
+[1 6 8 12 22] 88
+>Acha o menor numero, varre todo os numeros e então troca de posição com o primeiro.
+
+### Algoritmo de seleção em C
+A Inicio do vetor
+    - procure o menor
+`````c
+for (i=0; i<tam-1, i++)
+`````
+B Assum o primeiro com o menor
+````c
+mim=1
+for(i=i+1; j<tam; j++)
+````
+C percorra e compare se ha menor 
+D realize atroca do elemento da vez e o menor selecionado
+```` 
+if(v[j)< v[min])
+min=j;
+````
+
+>aux = v[min]
+>v[min] = v[i]
+>v[i]= aux
+
+pior caso do bolha se estiver ordenado de forma decrescente. Um método de ordenação é estável se a ordem relativa dos itens iguais não se altera durante a ordenação.
+
+## Algoritimo em C:
+````c
+void selectionSort(int arr[], int n) 
+{ 
+    int i, j, min_idx; 
+  
+    // One by one move boundary of unsorted subarray 
+    for (i = 0; i < n-1; i++) 
+    { 
+        // Find the minimum element in unsorted array 
+        min_idx = i; 
+        for (j = i+1; j < n; j++) 
+          if (arr[j] < arr[min_idx]) 
+            min_idx = j; 
+  
+        // Swap the found minimum element with the first element 
+        swap(&arr[min_idx], &arr[i]); 
+    } 
+} 
+````
+
