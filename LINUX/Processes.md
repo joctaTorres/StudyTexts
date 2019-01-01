@@ -6,7 +6,7 @@
 
 In linux systems we can have a view of wha processes are running by executing the `top` command in the terminal.
 
-> This command is "real-time". You can see the list is not static, it changes. That because the `top` lists in real-time the processes that are running in your machine.
+> This command is "real-time". You can see the list is not static, it changes. That's because the `top` lists in real-time the processes that are running in your machine.
 If you open a new application, you can see it begin add to the processes list.
 
 Each entry in this list is a process. In the columns you can see information about each process. The most relevant information are:
@@ -23,24 +23,43 @@ Each entry in this list is a process. In the columns you can see information abo
 	- **RES** is the memory consumed by the process in RAM;
 	- And **%MEM** expresses this value as a percentage of the total RAM available. Finally, “SHR” is the amount of memory shared with other processes.
 6. **S** value shows the process state in the single-letter form (a process may be in various states).
-7. **TIME+** is the total CPU time used by the process since it started, precise to the hundredths of a second.
-8. The **COMMAND** column shows the command associated whit the process.
+	-  The status of the task which can be one of:
+		- D = uninterruptible sleep
+		- R = running
+		- S = sleeping
+		- T = stopped by job control signal
+		- t = stopped by debugger during trace
+		- Z = zombie
 
-### The _ps_ and related commands:
+7. **TIME+** is the total CPU time used by the process since it started, precise to the hundredths of a second.
+8. The **COMMAND** column shows the command name associated whit the process.
+
+### The _ps_ commands:
 
 Theres also the `ps` command. The `ps` (i.e., process status) command is also used to provide information about the currently running processes.
 
 > While the `top` command is mostly used interactively, `ps` is designed for non-interactive use (scripts, extracting some information with shell pipelines etc.)
 
 While `top` allows you to display all processes statistics continuously, the `ps` gives you a **single snapshot of the running active processes** (statical).
-Despite that, it's also possible to list all processes and their status and resource usage using `ps aux`.
+
+> From the _man ps_: "By default, ps selects all processes with the same effective user ID (euid=EUID) as the current user and associated with the same terminal as the invoker.
+It displays the process ID (pid=PID), the terminal associated with the process (tname=TTY), the cumulated CPU time in [DD-]hh:mm:ss format (time=TIME), and the executable name (ucmd=CMD).
+
+That means the `ps` command without any arguments, displays processes for the current shell and same effective user ID.
+
+You can use the `-A` or `-e` flag to select all processes. 
+It's also possible to list all processes and their status and resource usage using `ps aux`.
 
 > Basically, the `aux` means: a = show processes for all users; u = display the process's user/owner; x = also show processes not attached to a terminal
 
-Typically, the `ps aux` command is used like this:
+Typically, the `ps aux` and `ps -A`commands are used like this:
 
 ```
 $ ps aux | grep [PROCESS YOU'RE LOOKING FOR]
+
+or
+
+$ ps -A | grep [PROCESS YOU'RE LOOKING FOR]
 ```
 
 Now, if you're looking for an determined PID, you can use the `pgrep` command.
@@ -55,5 +74,26 @@ $ pgrep _COMMAND-NAME_
 
 There can be more than one process associated with a single _COMMAND_ field value. Therefore, the `pgrep` can return a list of PID.
 
-Analogous to the `pgrep` command, theres the `pkill` command that will end all running processes that are associated the same _COMMAND_ name. (We will see an exemple abotu this soon).
+Analogous to the `pgrep` command, theres the `pkill` command that will end all running processes that are associated the same _COMMAND_ name. (We will see an exemple about this soon).
+
+## Managing processes:
+
+### The _kill_ command:
+
+The name is pretty much intuitive for this one. The `kill` command sends a signal to a process using its PID.
+The syntax for the command is:
+
+```
+$ kill [options] <pid> [...]
+```
+
+There are more then 30 different signals send to a process using `kill`. You can list all possible signal by running:
+
+```
+$ kill -L
+```
+This will list signal names in a nice table.
+
+The signal can be specified by using its name or number. The default signal for kill is TERM.
+
 
