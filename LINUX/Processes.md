@@ -4,6 +4,27 @@
 
 The ability to manage processes on your system is critical for a Linux system administrator. And to fully understand how processes work in Linux systems, we need to take a deep dive into how process are started (and even how the OS itself is started) and their life cycle.
 
+### Types of Processes:
+
+There are fundamentally two types of processes in Linux:
+
+**Foreground processes** (also referred to as interactive processes) – these are initialized and controlled through a terminal session. In other words, there has to be a user connected to the system to start such processes; they haven’t started automatically as part of the system functions/services.
+
+**Background processes** (also referred to as non-interactive/automatic processes) – are processes not connected to a terminal; they don’t expect any user input.
+
+#### Linux's Services and Daemons:
+
+Linux Services and Daemons are a special class of processes that run in the background.
+
+**Daemons:** are processes that run continuously in the background, rather than under the direct control of a user. Daemons are generally easy to recognize because their names end with the letter d.
+
+Daemons are usually launched automatically while a computer is booting up and then wait in the background until their services are required. They typically respond to hardware activity, to network requests or to other programs by performing specified tasks. They can also configure hardware (such as the daemon devfsd, which can provide intelligent management of device entries in the device filesystem on some Linux systems), run scheduled tasks (e.g., crond) and perform a variety of other functions.
+
+That begin said, the linux initialization process is a daemon (we will talk about this below). Another example is the secure networking daemon, xinetd (eXtended InterNET services Daemon), which is usually launched during booting and listens passively until a program, such as FTP or telnet, requests a connection.
+
+**Services:** A service is also a brackground process, which responds to requests from other programs over some inter-process communication mechanism (usually over a local or external network). A service is what a server provides. For example, the NFS port mapping service is provided as a separate portmap service, which is implemented as the portmapd daemon.
+
+
 ### How a linux starts: 
 
 The Basic Input/Output System (BIOS) is the lowest level interface between the computer and peripherals. On boot it performs integrity checks on memory and seeks instructions on the _Master Boor Record_ (MBR) on the first drive. The MBR points to the _GRand Unified Bootloader_ (GRUB). GRUB lists the Operating System (OS) labels and the user will select, or the default is selected to identify which kernel to run and which partition, on which drive it is located. GRUB then loads the GNU/Linux OS.
@@ -23,6 +44,10 @@ The init daemon is not part of the Linux kernel. Therefore, it can come in diffe
 > The Linux init daemon was based upon the UNIX System V init daemon. Thus, it is called the _SysVinit_ daemon. Another classic init daemon was based on Berkeley UNIX, also called BSD. Therefore, the two original Linux init daemons were BSD init and SysVinit.
 The classic init daemons worked without problems for many years. However, these daemons were created to work within a static environment. As new hardware, such as USB devices, came along, the classic init daemons had trouble dealing with these and other hot-plug devices. New init daemons were needed to deal with these fluid environments.
 In addition, as new services came along, the classic init daemons had to deal with starting more and more services. Thus, the entire system initialization process was less efficient and ultimately slower.
+
+The modern initialization daemons have tried to solve the problems of ineffi cient system boots and non-static environments. Two of these _init_ daemons are the _**Upstart** init_ and _**systemd** daemons_.
+
+> Recently, Ubuntu, RHEL, and Fedora distributions have made the move to the newer systemd daemon while maintaining backward compatibility to the classic SysVinit, Upstart, or BSD init daemons.
 
 ### How new processes are created:
 
@@ -44,26 +69,6 @@ During execution, a process changes from one state to another depending on its e
 - Zombie – here, a process is dead, it has been halted but it’s still has an entry in the process table.
 
 ![Process Flow](./processflow.gif)
-
-### Types of Processes:
-
-There are fundamentally two types of processes in Linux:
-
-**Foreground processes** (also referred to as interactive processes) – these are initialized and controlled through a terminal session. In other words, there has to be a user connected to the system to start such processes; they haven’t started automatically as part of the system functions/services.
-
-**Background processes** (also referred to as non-interactive/automatic processes) – are processes not connected to a terminal; they don’t expect any user input.
-
-#### Linux's Services and Daemons:
-
-Linux Services and Daemons are a special class of processes that run in the background.
-
-**Daemons:** are processes that run continuously in the background, rather than under the direct control of a user. Daemons are generally easy to recognize because their names end with the letter d.
-
-Daemons are usually launched automatically while a computer is booting up and then wait in the background until their services are required. They typically respond to hardware activity, to network requests or to other programs by performing specified tasks. They can also configure hardware (such as the daemon devfsd, which can provide intelligent management of device entries in the device filesystem on some Linux systems), run scheduled tasks (e.g., crond) and perform a variety of other functions.
-
-That begin said, the initialization process (init or systemd) is a daemon. Another example is the secure networking daemon, xinetd (eXtended InterNET services Daemon), which is usually launched during booting and listens passively until a program, such as FTP or telnet, requests a connection.
-
-**Services:** A service is also a brackground process, which responds to requests from other programs over some inter-process communication mechanism (usually over a local or external network). A service is what a server provides. For example, the NFS port mapping service is provided as a separate portmap service, which is implemented as the portmapd daemon.
 
 ### Getting information about running processes:
 
@@ -88,7 +93,8 @@ Each entry in this list is a process. In the columns you can see information abo
 5. _VIRT_, _RES_, _SHR_ and _%MEM_ fields are related with memory consumption.
 	- **VIRT** is the total amount of memory consumed by a process. This includes the program’s code, the data stored by the process in memory, as well as any regions of memory that have been swapped to the disk;
 	- **RES** is the memory consumed by the process in RAM;
-	- And **%MEM** expresses this value as a percentage of the total RAM available. Finally, “SHR” is the amount of memory shared with other processes.
+	- And **%MEM** expresses this value as a percentage of the total RAM available.
+	- Finally, **SHR** is the amount of memory shared with other processes.
 6. **S** value shows the process state in the single-letter form (a process may be in various states).
 	-  The status of the task which can be one of:
 		- D = uninterruptible sleep
@@ -97,7 +103,6 @@ Each entry in this list is a process. In the columns you can see information abo
 		- T = stopped by job control signal
 		- t = stopped by debugger during trace
 		- Z = zombie
-
 7. **TIME+** is the total CPU time used by the process since it started, precise to the hundredths of a second.
 8. The **COMMAND** column shows the command name associated whit the process.
 
@@ -263,13 +268,29 @@ You can start a service by running:
 $ sudo service _SERVICE-NAME_ start
 ```
 Note that once you start a process it doesn't return any message whatsoever, the service just runs in the background.
-Ussaj
+_You may be able to connect to a service using its default port on localhost_
 
-In a simmilar way, you can stop a service just by doing:
+In a similar way, you can stop a service just by doing:
 
 ```
 $ sudo service _SERVICE-NAME_ start
 ```
 
+And you can also restart the service by running:
+
+```
+$ sudo service _SERVICE-NAME_ restart
+```
 
 
+With the newer SysvInit/Upstart and systemd init daemons, the new standard way to deal with services is using `systemctl`
+
+The syntax of _systemctl_ is very similar to the old `service` commands.
+
+Here are the commands to _systemctl_:
+
+```
+$ sudo systemctl start _SERVICE-NAME_
+$ sudo systemctl stop _SERVICE-NAME_
+$ sudo systemctl reload _SERVICE-NAME_
+```
